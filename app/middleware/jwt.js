@@ -1,36 +1,25 @@
-/*
- * @Autor: LDZ
- * @Date: 2021-12-01 14:19:02
- * @LastEditors: LDZ
- * @LastEditTime: 2022-03-29 15:16:58
- * @FilePath: \vue-admin-templatec:\Users\Barry-LDZ\Desktop\DEMO\egg-courier\app\middleware\jwt.js
- */
 'use strict';
 
-module.exports = options => {
+const whiteList = [ '/login' ];
+
+module.exports = () => {
   return async function(ctx, next) {
-    const token = ctx.request.header.authorization;
-    let decode = '';
-    if (token) {
-      try {
-        // 解码token
-        decode = ctx.app.jwt.verify(token, options.secret);// 验证token
-        await next();
-      } catch (error) {
-        ctx.status = 401;
-        ctx.body = {
-          code: 401,
-          msg: 'token已过期，请重新登录！',
-        };
-        return;
+    const isInWhiteList = whiteList.some(item => item === ctx.request.url); // 判断接口路径是否在白名单
+    if (!isInWhiteList) {
+      const token = ctx.request.header.authorization;// 拿到token
+      if (token) { // 如果token存在
+        const decoded = ctx.app.jwt.verify(token, ctx.app.config.jwt.secret) || 'false';// 解密token
+        // console.log("接口操作，token解析结果：", decoded);
+        if (decoded !== 'false') {
+          await next();
+        } else {
+          ctx.throw(403, '无效Token');
+        }
+      } else {
+        ctx.throw(403, '无Token');
       }
     } else {
-      ctx.status = 401;
-      ctx.body = {
-        code: 401,
-        msg: '没有token',
-      };
-      return;
+      await next();
     }
   };
 };
