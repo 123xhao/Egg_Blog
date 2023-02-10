@@ -1,8 +1,17 @@
 'use strict';
 
 const { Controller } = require('egg');
-
+/**
+* @Controller 用户管理
+*/
 class LoginController extends Controller {
+  /**
+    * @summary 登录
+    * @description 账号、密码登录
+    * @router post /api/login
+    * @request body loginRequest *body（DTO）
+    * @response 200 baseResponse 登录成功（DTO）
+    */
   async login() {
     const { ctx, app } = this;
     const data = ctx.request.body;
