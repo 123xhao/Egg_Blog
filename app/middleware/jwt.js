@@ -13,7 +13,7 @@ module.exports = () => {
         if (decoded !== 'false') {
           await next();
         } else {
-          ctx.throw(403, '无效Token');
+          ctx.throw(419, '无效Token');
         }
       } else {
         ctx.throw(403, '无Token');

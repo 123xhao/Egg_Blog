@@ -11,6 +11,7 @@ module.exports = appInfo => {
    * @type {Egg.EggAppConfig}
    **/
   const config = exports = {};
+  const path = require('path');
 
   // use for cookie sign key, should change to your own and keep security
   config.keys = appInfo.name + '_1675500443326_7967';
@@ -18,15 +19,15 @@ module.exports = appInfo => {
     // 单数据库信息配置
     client: {
     // host
-      host: '192.168.10.130',
+      host: '127.0.0.1',
       // 端口号
       port: '3306',
       // 用户名
       user: 'root',
       // 密码
-      password: 'Kv123456',
+      password: '',
       // 数据库名
-      database: 'cg',
+      database: 'blog',
     },
     // 是否加载到 app 上，默认开启
     app: true,
@@ -48,16 +49,16 @@ module.exports = appInfo => {
     secret: '123456',
   };
   // 配置swagger文档
-  config.swagerdoc={
+  config.swagerdoc = {
     dirScanner: './app/controller',
     apiInfo: {
       title: 'egg-swagger',
       description: 'swagger-ui for egg',
       version: '1.0.0',
     },
-    schemes: ['http', 'https'],
-    consumes: ['application/json'],
-    produces: ['application/json'],
+    schemes: [ 'http', 'https' ],
+    consumes: [ 'application/json' ],
+    produces: [ 'application/json' ],
     securityDefinitions: {
       // apikey: {
       //   type: 'apiKey',
@@ -78,7 +79,23 @@ module.exports = appInfo => {
     // enableValidate: true,
     routerMap: false,
     enable: true,
-  }
+  };
+  // 文件存放路径和文件白名单
+  config.uploadDir = 'app/public/img';
+  config.multipart = {
+    mode: 'file',
+    fileSize: 1048576000,
+    whitelist: [ '.txt', '.png', '.jpg' ],
+  };
+  // 文件静态路径
+  config.static = {
+    prefix: '/app/public', // 访问前缀
+    dir: path.join(appInfo.baseDir, 'app/public'),
+    dynamic: true,
+    preload: false,
+    maxAge: 31536000,
+    buffer: true,
+  };
   // add your middleware config here
   config.middleware = [];
 

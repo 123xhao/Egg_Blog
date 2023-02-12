@@ -2,7 +2,7 @@
 
 const { Controller } = require('egg');
 /**
-* @Controller 用户管理
+* @Controller 登陆管理
 */
 class LoginController extends Controller {
   /**
