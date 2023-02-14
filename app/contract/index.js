@@ -4,4 +4,7 @@ module.exports = {
     data: { type: 'string', example: '请求成功' },
     errorMessage: { type: 'string', example: '请求成功' },
   },
+  nullRequest:{
+    
+  }
 };

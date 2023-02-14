@@ -3,14 +3,23 @@
 const { Controller } = require('egg');
 const fs = require('fs');// node自带
 const moment = require('moment');// npm下载
-const mkdirp = require('mkdirp');// node自带
+const mkdirp = require('mkdirp');// node
 const path = require('path');// node自带
-
+/**
+* @Controller 首页图片管理
+*/
 class HomeImgController extends Controller {
+  /**
+    * @summary 添加首页图片
+    * @description 文件类型jpg，png，mp3
+    * @router post /api/homeImg/upload
+    * @request body nullRequest *body（DTO）
+    * @response 200 baseResponse 查询成功（DTO）
+    */
   async add() {
     const { ctx } = this;
     // 需要前往 config/config.default.js 设置 config.multipart 的 mode 属性为 file
-    console.log(ctx.request);
+    console.log(ctx.request.files);
     const file = ctx.request.files[0];
     // 声明存放资源的路径
     let uploadDir = '';
@@ -43,6 +52,13 @@ class HomeImgController extends Controller {
       id,
     };
   }
+  /**
+    * @summary 查询首页图片
+    * @description 文件类型jpg，png，mp3
+    * @router get /api/homeImg/query
+    * @request body nullRequest *body（DTO）
+    * @response 200 baseResponse 查询成功（DTO）
+    */
   async query() {
     // 假如 我们拿到用户 id 从数据库获取用户详细信息
     const { ctx } = this;
