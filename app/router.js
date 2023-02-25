@@ -14,10 +14,10 @@ module.exports = app => {
   router.post('/api/user/modify', jwt, controller.user.modify);
   // 首页
   router.post('/api/homeImg/upload', jwt, controller.homeImg.add);
-  router.get('/api/homeImg/query', jwt, controller.homeImg.query);
+  router.get('/api/homeImg/query', controller.homeImg.query);
   // 文章
   router.post('/api/article/add', jwt, controller.article.add);
   router.delete('/api/article/delete', jwt, controller.article.delete);
   router.post('/api/article/modify', jwt, controller.article.modify);
-  router.get('/api/article/query', jwt, controller.article.query);
+  router.get('/api/article/query', controller.article.query);
 };

@@ -38,7 +38,6 @@ class UserController extends Controller {
   async modify() {
     const { ctx } = this;
     const data = ctx.request.body;
-    console.log(data);
     const userInfo = await ctx.service.user.modify(data);
     ctx.body = {
       code: 200,

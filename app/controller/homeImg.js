@@ -19,7 +19,6 @@ class HomeImgController extends Controller {
   async add() {
     const { ctx } = this;
     // 需要前往 config/config.default.js 设置 config.multipart 的 mode 属性为 file
-    console.log(ctx.request.files);
     const file = ctx.request.files[0];
     // 声明存放资源的路径
     let uploadDir = '';
@@ -63,7 +62,6 @@ class HomeImgController extends Controller {
     // 假如 我们拿到用户 id 从数据库获取用户详细信息
     const { ctx } = this;
     const res = await ctx.service.homeImg.query();
-    console.log(res);
     // res返回数据   写入页面
     ctx.body = {
       code: 200,

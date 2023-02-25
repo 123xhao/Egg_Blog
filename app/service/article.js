@@ -8,7 +8,7 @@ class LoginService extends Service {
     // 假如 我们拿到用户 id 从数据库获取用户详细信息
     const { app } = this;
     const data = {
-      createTime: moment(new Date()).format('YYYY-MM-DD hh:mm:ss'),
+      createTime: new Date(),
       status: '未发布',
       lookNumber: 0,
     };
@@ -35,7 +35,8 @@ class LoginService extends Service {
     // 假如 我们拿到用户 id 从数据库获取用户详细信息
     const { app } = this;
     try {
-      const result = await app.mysql.update('article', params);
+      await app.mysql.update('article', params);
+      const result = await app.mysql.get('article', { id: params.id });
       return result;
     } catch (error) {
       console.log(error);
@@ -55,7 +56,7 @@ class LoginService extends Service {
     try {
       const result = await app.mysql.select('article', { where: params });
       result.forEach(item => {
-        item.createTime = moment(item.createTime).format('YYYY-MM-DD hh:mm:ss');
+        item.createTime = moment(item.createTime).format('YYYY-MM-DD HH:mm:ss');
       });
       return result;
     } catch (error) {
