@@ -20,4 +20,5 @@ module.exports = app => {
   router.delete('/api/article/delete', jwt, controller.article.delete);
   router.post('/api/article/modify', jwt, controller.article.modify);
   router.get('/api/article/query', controller.article.query);
+  router.get('/api/article/hot/:id', controller.article.addHot);
 };

@@ -77,6 +77,26 @@ class ArticleController extends Controller {
       data: res,
     };
   }
+  /**
+    * @summary 增加文章热度
+    * @description 增加文章热度
+    * @router post /api/article/hot
+    * @request body articleAddRequest *body（DTO）
+    * @response 200 baseResponse 查询成功（DTO）
+    */
+  async addHot() {
+    const { ctx, service } = this;
+    ctx.body = {
+      name: `hello ${ctx.params.id}`,
+    };
+    const data = await service.article.addHot(ctx.params.id);
+    // res返回数据   写入页面
+    ctx.body = {
+      code: 200,
+      msg: '热度加一',
+      data,
+    };
+  }
 }
 
 module.exports = ArticleController;
