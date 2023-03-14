@@ -3,9 +3,8 @@
 const { Service } = require('egg');
 const moment = require('moment');// npm下载
 
-class LoginService extends Service {
+class ArticleService extends Service {
   async add(params) {
-    // 假如 我们拿到用户 id 从数据库获取用户详细信息
     const { app } = this;
     const data = {
       createTime: new Date(),
@@ -80,4 +79,4 @@ class LoginService extends Service {
     }
   }
 }
-module.exports = LoginService;
+module.exports = ArticleService;

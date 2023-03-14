@@ -21,4 +21,13 @@ module.exports = app => {
   router.post('/api/article/modify', jwt, controller.article.modify);
   router.get('/api/article/query', controller.article.query);
   router.get('/api/article/hot/:id', controller.article.addHot);
+  // 留言
+  router.post('/api/leaveMessage/add', controller.leaveMessage.addTypeA);
+  // 回复
+  router.post('/api/reply/add', controller.leaveMessage.addTypeB);
+  router.delete('/api/leaveMessage/delete', controller.leaveMessage.delete);
+  // 后台管理系统留言查询
+  router.get('/api/leaveMessage/query', controller.leaveMessage.query);
+  // 博客网页留言查询
+  router.get('/api/blog/query', controller.leaveMessage.blogQuery);
 };

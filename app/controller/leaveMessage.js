@@ -2,20 +2,38 @@
 
 const { Controller } = require('egg');
 /**
-* @Controller 文章管理
+* @Controller 留言管理
 */
-class ArticleController extends Controller {
+class LeaveMessageController extends Controller {
   /**
-    * @summary 添加文章
-    * @description 添加文章
+    * @summary 添加留言
+    * @description 添加留言
     * @router post /api/article/add
     * @request body articleAddRequest *body（DTO）
     * @response 200 baseResponse 查询成功（DTO）
     */
-  async add() {
+  async addTypeA() {
     const { ctx, service } = this;
     const params = ctx.request.body;
-    await service.article.add(params);
+    await service.leaveMessage.add(params);
+    // res返回数据   写入页面
+    ctx.body = {
+      code: 200,
+      msg: '添加成功',
+      data: null,
+    };
+  }
+  /**
+    * @summary 添加留言
+    * @description 添加留言
+    * @router post /api/article/add
+    * @request body articleAddRequest *body（DTO）
+    * @response 200 baseResponse 查询成功（DTO）
+    */
+  async addTypeB() {
+    const { ctx, service } = this;
+    const params = ctx.request.body;
+    await service.leaveMessage.add(params);
     // res返回数据   写入页面
     ctx.body = {
       code: 200,
@@ -33,30 +51,13 @@ class ArticleController extends Controller {
   async delete() {
     const { ctx, service } = this;
     const id = ctx.request.query;
-    await service.article.delete(id);
+    console.log(ctx.request.query);
+    await service.leaveMessage.delete(id);
     // res返回数据   写入页面
     ctx.body = {
       code: 200,
       msg: '删除成功',
       data: null,
-    };
-  }
-  /**
-    * @summary 修改文章
-    * @description 修改文章
-    * @router post /api/article/modify
-    * @request body articleModifyRequest *body（DTO）
-    * @response 200 baseResponse 查询成功（DTO）
-    */
-  async modify() {
-    const { ctx, service } = this;
-    const params = ctx.request.body;
-    const res = await service.article.modify(params);
-    // res返回数据   写入页面
-    ctx.body = {
-      code: 200,
-      msg: '修改成功',
-      data: res,
     };
   }
   /**
@@ -69,7 +70,7 @@ class ArticleController extends Controller {
   async query() {
     const { ctx, service } = this;
     const params = ctx.request.query;
-    const res = await service.article.query(params);
+    const res = await service.leaveMessage.query(params);
     // res返回数据   写入页面
     ctx.body = {
       code: 200,
@@ -78,25 +79,23 @@ class ArticleController extends Controller {
     };
   }
   /**
-    * @summary 增加文章热度
-    * @description 增加文章热度
-    * @router post /api/article/hot
-    * @request body articleAddRequest *body（DTO）
+    * @summary 查询文章
+    * @description 查询文章
+    * @router get /api/article/query
+    * @request body articleQueryRequest *body（DTO）
     * @response 200 baseResponse 查询成功（DTO）
     */
-  async addHot() {
+  async blogQuery() {
     const { ctx, service } = this;
-    ctx.body = {
-      name: `hello ${ctx.params.id}`,
-    };
-    const data = await service.article.addHot(ctx.params.id);
+    const params = ctx.request.query;
+    const res = await service.leaveMessage.blogQuery(params);
     // res返回数据   写入页面
     ctx.body = {
       code: 200,
-      msg: '热度加一',
-      data,
+      msg: '查询成功',
+      data: res,
     };
   }
 }
 
-module.exports = ArticleController;
+module.exports = LeaveMessageController;
