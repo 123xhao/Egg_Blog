@@ -30,4 +30,14 @@ module.exports = app => {
   router.get('/api/leaveMessage/query', controller.leaveMessage.query);
   // 博客网页留言查询
   router.get('/api/blog/query', controller.leaveMessage.blogQuery);
+
+  // 文章评论
+  router.post('/api/comment/add', controller.comment.addTypeA);
+  // 文章评论回复
+  router.post('/api/commentReply/add', controller.comment.addTypeB);
+  router.delete('/api/comment/delete', controller.comment.delete);
+  // 后台管理系统文章评论查询
+  router.get('/api/comment/query', controller.comment.query);
+  // 博客网页文章评论查询
+  router.get('/api/article/comment/:id', controller.comment.blogQuery);
 };

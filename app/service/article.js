@@ -65,7 +65,6 @@ class ArticleService extends Service {
   }
   async addHot(id) {
     // 假如 我们拿到用户 id 从数据库获取用户详细信息
-    console.log(id);
     const { app } = this;
     try {
       const data = await app.mysql.get('article', { id });

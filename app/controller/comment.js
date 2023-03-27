@@ -4,7 +4,7 @@ const { Controller } = require('egg');
 /**
 * @Controller 留言管理
 */
-class LeaveMessageController extends Controller {
+class CommentController extends Controller {
   /**
     * @summary 添加留言
     * @description 添加留言
@@ -15,7 +15,7 @@ class LeaveMessageController extends Controller {
   async addTypeA() {
     const { ctx, service } = this;
     const params = ctx.request.body;
-    await service.leaveMessage.addTypeA(params);
+    await service.comment.addTypeA(params);
     // res返回数据   写入页面
     ctx.body = {
       code: 200,
@@ -33,7 +33,7 @@ class LeaveMessageController extends Controller {
   async addTypeB() {
     const { ctx, service } = this;
     const params = ctx.request.body;
-    await service.leaveMessage.addTypeB(params);
+    await service.comment.addTypeB(params);
     // res返回数据   写入页面
     ctx.body = {
       code: 200,
@@ -51,8 +51,7 @@ class LeaveMessageController extends Controller {
   async delete() {
     const { ctx, service } = this;
     const id = ctx.request.query;
-    console.log(ctx.request.query);
-    await service.leaveMessage.delete(id);
+    await service.comment.delete(id);
     // res返回数据   写入页面
     ctx.body = {
       code: 200,
@@ -70,7 +69,7 @@ class LeaveMessageController extends Controller {
   async query() {
     const { ctx, service } = this;
     const params = ctx.request.query;
-    const res = await service.leaveMessage.query(params);
+    const res = await service.comment.query(params);
     // res返回数据   写入页面
     ctx.body = {
       code: 200,
@@ -87,8 +86,8 @@ class LeaveMessageController extends Controller {
     */
   async blogQuery() {
     const { ctx, service } = this;
-    const params = ctx.request.query;
-    const res = await service.leaveMessage.blogQuery(params);
+    const params = ctx.params;
+    const res = await service.comment.blogQuery(params);
     // res返回数据   写入页面
     ctx.body = {
       code: 200,
@@ -98,4 +97,4 @@ class LeaveMessageController extends Controller {
   }
 }
 
-module.exports = LeaveMessageController;
+module.exports = CommentController;
